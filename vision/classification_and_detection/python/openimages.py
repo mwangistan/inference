@@ -85,7 +85,7 @@ class OpenImages(dataset.Dataset):
                     not_found += 1
                     continue
             else:
-                src = os.path.join(data_path, image_name)
+                src = os.path.join(data_path, "validation", "data", image_name)
                 if not os.path.exists(src):
                     # if the image does not exists ignore it
                     not_found += 1
