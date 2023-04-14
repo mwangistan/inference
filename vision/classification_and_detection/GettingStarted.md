@@ -1,16 +1,28 @@
-### Running the benchmark on windows
+## Running the benchmark on windows
 
+### Clone the repo
+```
 git clone --recurse-submodules https://github.com/mwangistan/inference.git
 cd inference/loadgen
+```
 
-pip install pycocotools, requests, boto3, tqdm, pandas
+### Setup loadgen
+```
+cd inference/loadgen
 python setup.py develop
+```
 
+### Setup the vision app
+```
 cd ../vision/classification_and_detection
 python setup.py develop
-
-#### Download openimages 
+```
+### Download openimages 
+```
 python tools\openimages.py -m <MAX_IMAGES> - d<DATA_SET_PATH>
+```
 
-### Running the benchmark
+### Run the benchmark
+```
 python python/main.py --profile retinanet-onnxruntime --model <Model path> --dataset-path <Path to openimages dataset> --accuracy
+```
