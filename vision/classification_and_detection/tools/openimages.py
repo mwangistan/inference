@@ -115,7 +115,7 @@ def get_args():
     )
     parser.add_argument(
         "--output-labels",
-        default="labels.json",
+        default="openimages-mlperf.json",
         type=str,
         help="Name of the file to output output the labels",
     )
