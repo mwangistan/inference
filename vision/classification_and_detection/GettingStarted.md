@@ -19,7 +19,7 @@ python setup.py develop
 ```
 ### Download openimages 
 ```
-python tools\openimages.py --max-images <MAX_IMAGES> - dataset-dir<DATA_SET_PATH>
+python tools\openimages.py --max-images <MAX_IMAGES> --dataset-dir<DATA_SET_PATH>
 ```
 
 ### Run the benchmark
