@@ -24,5 +24,5 @@ python tools\openimages.py --max-images <MAX_IMAGES> --dataset-dir<DATA_SET_PATH
 
 ### Run the benchmark
 ```
-python python/main.py --profile retinanet-onnxruntime --model <Model path> --dataset-path <Path to openimages dataset> --accuracy
+python python/main.py --profile <Profile> --model <Model path> --dataset-path <Path to openimages dataset> --accuracy
 ```
