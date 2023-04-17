@@ -29,3 +29,4 @@ python tools\openimages.py --max-images <MAX_IMAGES> --dataset-dir<DATA_SET_PATH
 ```
 python python/main.py --profile <Profile> --model <Model path> --dataset-path <Path to openimages dataset> --accuracy
 ```
+More details: https://github.com/mwangistan/inference/blob/master/vision/classification_and_detection/README.md#usage
