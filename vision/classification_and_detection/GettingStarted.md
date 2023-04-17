@@ -11,7 +11,10 @@ cd inference/loadgen
 cd inference/loadgen
 python setup.py develop
 ```
-
+### Install additional dependencies
+```
+pip install pycocotools, onnxruntime
+```
 ### Setup the vision app
 ```
 cd ../vision/classification_and_detection
