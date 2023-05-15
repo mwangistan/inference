@@ -249,6 +249,11 @@ def get_args():
     parser.add_argument("--performance-sample-count", type=int, help="performance sample count")
     parser.add_argument("--max-latency", type=float, help="mlperf max latency in pct tile")
     parser.add_argument("--samples-per-query", default=8, type=int, help="mlperf multi-stream samples per query")
+    parser.add_argument("--device_id", type=int, help="Device id to target")
+    parser.add_argument("--use_cpu", action="store_true", help="Target the cpu")
+    parser.add_argument("--use_cuda_gpu", action="store_true", help="Target gpu via CUDA API. This works on nvidia only")
+    parser.add_argument("--use_directml_gpu", action="store_true", help="Target gpu via Directml API")
+    parser.add_argument("--use_mps", action="store_true", help="Target Apple gpu")
     args = parser.parse_args()
 
     # don't use defaults in argparser. Instead we default to a dict, override that with a profile
@@ -272,26 +277,26 @@ def get_args():
     return args
 
 
-def get_backend(backend):
-    if backend == "tensorflow":
+def get_backend(args):
+    if args.backend == "tensorflow":
         from backend_tf import BackendTensorflow
         backend = BackendTensorflow()
-    elif backend == "onnxruntime":
+    elif args.backend == "onnxruntime":
         from backend_onnxruntime import BackendOnnxruntime
-        backend = BackendOnnxruntime()
-    elif backend == "tvm":
+        backend = BackendOnnxruntime(args)
+    elif args.backend == "tvm":
         from backend_tvm import BackendTVM
         backend = BackendTVM()
-    elif backend == "null":
+    elif args.backend == "null":
         from backend_null import BackendNull
         backend = BackendNull()
-    elif backend == "pytorch":
+    elif args.backend == "pytorch":
         from backend_pytorch import BackendPytorch
-        backend = BackendPytorch()
-    elif backend == "pytorch-native":
+        backend = BackendPytorch(args)
+    elif args.backend == "pytorch-native":
         from backend_pytorch_native import BackendPytorchNative
         backend = BackendPytorchNative()      
-    elif backend == "tflite":
+    elif args.backend == "tflite":
         from backend_tflite import BackendTflite
         backend = BackendTflite()
     else:
@@ -457,7 +462,7 @@ def main():
     log.info(args)
 
     # find backend
-    backend = get_backend(args.backend)
+    backend = get_backend(args)
 
      # If TVM, pass max_batchsize to the backend
     if args.backend.startswith('tvm'):
