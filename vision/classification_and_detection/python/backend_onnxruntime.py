@@ -10,10 +10,11 @@ import backend
 class BackendOnnxruntime(backend.Backend):
     def __init__(self, args):
         super(BackendOnnxruntime, self).__init__()
-        self.provider = ["CPUExecutionProvider"]
-        if args.use_cuda_gpu:
+        if args.device_type == "cpu":
+            self.provider = ["CPUExecutionProvider"]
+        if args.device_type == "cuda":
             self.provider = ["CUDAExecutionProvider"]
-        if args.use_directml_gpu:
+        if args.device_type == "directml":
             self.provider = ["DmlExecutionProvider"]
         self.device = str(args.device_id) if args.device_id else "0"
 

@@ -11,10 +11,11 @@ class BackendPytorchNative(backend.Backend):
         super(BackendPytorchNative, self).__init__()
         self.sess = None
         self.model = None
-        self.device = "cpu"
-        if args.use_cuda_gpu:
+        if args.device_type == "cpu":
+            self.device = "cpu"
+        if args.device_type == "cuda":
             self.device = "cuda:"+ str(args.device_id) if args.device_id else "cuda:0"
-        if args.use_mps:
+        if args.device_type == "mps":
             self.device = "mps"
 
     def version(self):
