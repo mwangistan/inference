@@ -206,7 +206,7 @@ SCENARIO_MAP = {
     "Offline": lg.TestScenario.Offline,
 }
 
-SUPPORTED_DEVICE_TYPES = ["cpu", "directml", "cuda", "mps"]
+SUPPORTED_DEVICES = ["cpu", "gpu", "npu"]
 
 last_timeing = []
 
@@ -251,7 +251,7 @@ def get_args():
     parser.add_argument("--performance-sample-count", type=int, help="performance sample count")
     parser.add_argument("--max-latency", type=float, help="mlperf max latency in pct tile")
     parser.add_argument("--samples-per-query", default=8, type=int, help="mlperf multi-stream samples per query")
-    parser.add_argument("--device_id", type=int, help="Device id to target")
+    parser.add_argument("--device", choices=SUPPORTED_DEVICES, help="Supported device i.e cpu, gpu or npu")
     parser.add_argument("--device_type", choices=SUPPORTED_DEVICE_TYPES, help="Device type", required=True)
     args = parser.parse_args()
 
