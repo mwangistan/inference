@@ -206,7 +206,7 @@ SCENARIO_MAP = {
     "Offline": lg.TestScenario.Offline,
 }
 
-SUPPORTED_DEVICES = ["cpu", "gpu", ""]
+SUPPORTED_DEVICES = ["cpu", "gpu", "npu"]
 
 last_timeing = []
 
