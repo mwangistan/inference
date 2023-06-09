@@ -10,13 +10,18 @@ import backend
 class BackendOnnxruntime(backend.Backend):
     def __init__(self, args):
         super(BackendOnnxruntime, self).__init__()
-        if args.device_type == "cpu":
+        if args.device == "cpu":
             self.provider = ["CPUExecutionProvider"]
-        if args.device_type == "cuda":
-            self.provider = ["CUDAExecutionProvider"]
-        if args.device_type == "directml":
+            self.provider_options = []
+        if args.device == "gpu" and args.os == "Windows":
             self.provider = ["DmlExecutionProvider"]
-        self.device = str(args.device_id) if args.device_id else "0"
+            self.provider_options = [{'device_id': str(args.device_id) if args.device_id else "0"}]
+        if args.device == "gpu" and args.os != "Windows":
+            self.provider = ["CUDAExecutionProvider"]
+            self.provider_options = [{'device_id': str(args.device_id) if args.device_id else "0"}]
+        if args.device == "npu" and args.os == "Windows":
+            self.provider = ["QNNExecutionProvider"]
+            self.provider_options = [{'backend_path':'QnnHtp.dll'}]
 
     def version(self):
         return rt.__version__
@@ -38,7 +43,7 @@ class BackendOnnxruntime(backend.Backend):
         # Enable only upto extended optimizations on aarch64 due to an accuracy issue
         if os.environ.get("HOST_PLATFORM_FLAVOR", "") == "aarch64":
             opt.graph_optimization_level = rt.GraphOptimizationLevel.ORT_ENABLE_EXTENDED
-        self.sess = rt.InferenceSession(model_path, opt, providers=self.provider, provider_options=[{'device_id': self.device}])
+        self.sess = rt.InferenceSession(model_path, opt, providers=self.provider, provider_options=self.provider_options)
         # get input and output names
         if not inputs:
             self.inputs = [meta.name for meta in self.sess.get_inputs()]
