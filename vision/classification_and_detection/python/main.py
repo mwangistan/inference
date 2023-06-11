@@ -253,7 +253,6 @@ def get_args():
     parser.add_argument("--samples-per-query", default=8, type=int, help="mlperf multi-stream samples per query")
     parser.add_argument("--device", choices=SUPPORTED_DEVICES, help="Supported device i.e cpu, gpu or npu")
     parser.add_argument("--device_id", type=int, help="Device id")
-    parser.add_argument("--os", help="Operating System")
     args = parser.parse_args()
 
     # don't use defaults in argparser. Instead we default to a dict, override that with a profile
