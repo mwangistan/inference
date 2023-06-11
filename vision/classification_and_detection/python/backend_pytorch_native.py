@@ -13,9 +13,7 @@ class BackendPytorchNative(backend.Backend):
         self.model = None
         if args.device == "cpu":
             self.device = "cpu"
-        if args.device == "gpu" and args.os == "Windows":
-            self.device = "cuda:"+ str(args.device_id) if args.device_id else "cuda:0"
-        if args.device == "gpu" and args.os == "Mac":
+        if args.device == "gpu":
             self.device = "mps"
 
     def version(self):
