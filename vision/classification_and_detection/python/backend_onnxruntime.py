@@ -13,13 +13,10 @@ class BackendOnnxruntime(backend.Backend):
         if args.device == "cpu":
             self.provider = ["CPUExecutionProvider"]
             self.provider_options = []
-        if args.device == "gpu" and args.os == "Windows":
+        if args.device == "gpu":
             self.provider = ["DmlExecutionProvider"]
             self.provider_options = [{'device_id': str(args.device_id) if args.device_id else "0"}]
-        if args.device == "gpu" and args.os != "Windows":
-            self.provider = ["CUDAExecutionProvider"]
-            self.provider_options = [{'device_id': str(args.device_id) if args.device_id else "0"}]
-        if args.device == "npu" and args.os == "Windows":
+        if args.device == "npu":
             self.provider = ["QNNExecutionProvider"]
             self.provider_options = [{'backend_path':'QnnHtp.dll'}]
 
