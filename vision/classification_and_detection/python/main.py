@@ -291,10 +291,10 @@ def get_backend(args):
         backend = BackendNull()
     elif args.backend == "pytorch":
         from backend_pytorch import BackendPytorch
-        backend = BackendPytorch(args)
+        backend = BackendPytorch()
     elif args.backend == "pytorch-native":
         from backend_pytorch_native import BackendPytorchNative
-        backend = BackendPytorchNative()      
+        backend = BackendPytorchNative(args)      
     elif args.backend == "tflite":
         from backend_tflite import BackendTflite
         backend = BackendTflite()
