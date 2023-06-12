@@ -12,7 +12,7 @@ class BackendOnnxruntime(backend.Backend):
         super(BackendOnnxruntime, self).__init__()
         if args.device == "cpu":
             self.provider = ["CPUExecutionProvider"]
-            self.provider_options = []
+            self.provider_options = [{'device_id': str(args.device_id) if args.device_id else "0"}]
         if args.device == "gpu":
             self.provider = ["DmlExecutionProvider"]
             self.provider_options = [{'device_id': str(args.device_id) if args.device_id else "0"}]
