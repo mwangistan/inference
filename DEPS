@@ -7,16 +7,16 @@ vars = {
 
 deps = {
   '{mlpth_root}/build': {
-    'url': '{chromium_git}/build@e16a4b393c3a445337d667579ba2ac44977682b5'
+    'url': '{chromium_git}/build@e3ed5e43c305b353b49e08ac69e7f4d1c2d88ad2'
   },
   '{mlpth_root}/buildtools': {
-    'url': '{chromium_git}/buildtools@1cc82962cb50a35f6008b25a165782c568edac27'
+    'url': '{chromium_git}/buildtools@106e9fce3799633f42b45ca8bbe9e84e1e235603'
   },
   '{mlpth_root}/tools/clang': {
-    'url': '{chromium_git}/tools/clang.git@eaa6ca74e256b49db0d0cc359f1065b3b1659bd3',
+    'url': '{chromium_git}/tools/clang.git@3114fbc11f9644c54dd0a4cdbfa867bac50ff983',
   },
   '{mlpth_root}/third_party/pybind': {
-    'url': 'https://github.com/pybind/pybind11.git@v2.10.4',
+    'url': 'https://github.com/pybind/pybind11.git@v2.2',
   },
 }
 
