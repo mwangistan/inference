@@ -108,6 +108,12 @@ SUPPORTED_PROFILES = {
         "backend": "onnxruntime",
         "model-name": "resnet50",
     },
+    "resnet50-ncnn": {
+        "dataset": "imagenet_pytorch",
+        "outputs": "out0",
+        "backend": "ncnn",
+        "model-name": "resnet50",
+    },
 
     # mobilenet
     "mobilenet-tf": {
@@ -301,6 +307,9 @@ def get_backend(args):
     elif args.backend == "onnxruntime-qnn":
         from backedn_onnxruntime_qnn import BackendOnnxruntime
         backend = BackendOnnxruntime()
+    elif backend == "ncnn":
+        from backend_ncnn import BackendNCNN
+        backend = BackendNCNN()
     else:
         raise ValueError("unknown backend: " + backend)
     return backend
