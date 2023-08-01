@@ -3,15 +3,15 @@ onnxruntime backend (https://github.com/microsoft/onnxruntime)
 """
 
 # pylint: disable=unused-argument,missing-docstring,useless-super-delegation
-
 import onnxruntime as rt
 import os
 import backend
 
-
 class BackendOnnxruntime(backend.Backend):
     def __init__(self):
         super(BackendOnnxruntime, self).__init__()
+        self.provider = ["QNNExecutionProvider"]
+        self.provider_options = [{'backend_path':'QnnHtp.dll'}]
 
     def version(self):
         return rt.__version__
@@ -33,13 +33,7 @@ class BackendOnnxruntime(backend.Backend):
         # Enable only upto extended optimizations on aarch64 due to an accuracy issue
         if os.environ.get("HOST_PLATFORM_FLAVOR", "") == "aarch64":
             opt.graph_optimization_level = rt.GraphOptimizationLevel.ORT_ENABLE_EXTENDED
-
-        # self.sess = rt.InferenceSession(model_path, opt)
-        if len(rt.get_all_providers()) > 1 and os.environ.get("USE_GPU", "yes").lower() not in [ "0", "false", "off", "no" ]:
-            self.sess = rt.InferenceSession(model_path, opt, providers=["CUDAExecutionProvider"])
-        else:
-            self.sess = rt.InferenceSession(model_path, opt, providers=["CPUExecutionProvider"])
-            
+        self.sess = rt.InferenceSession(model_path, opt, providers=self.provider, provider_options=self.provider_options)
         # get input and output names
         if not inputs:
             self.inputs = [meta.name for meta in self.sess.get_inputs()]

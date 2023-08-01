@@ -206,8 +206,6 @@ SCENARIO_MAP = {
     "Offline": lg.TestScenario.Offline,
 }
 
-SUPPORTED_DEVICES = ["cpu", "gpu", "npu"]
-
 last_timeing = []
 
 
@@ -251,7 +249,6 @@ def get_args():
     parser.add_argument("--performance-sample-count", type=int, help="performance sample count")
     parser.add_argument("--max-latency", type=float, help="mlperf max latency in pct tile")
     parser.add_argument("--samples-per-query", default=8, type=int, help="mlperf multi-stream samples per query")
-    parser.add_argument("--device", choices=SUPPORTED_DEVICES, help="Supported device i.e cpu, gpu or npu")
     parser.add_argument("--device_id", type=int, help="Device id")
     args = parser.parse_args()
 
@@ -282,7 +279,7 @@ def get_backend(args):
         backend = BackendTensorflow()
     elif args.backend == "onnxruntime":
         from backend_onnxruntime import BackendOnnxruntime
-        backend = BackendOnnxruntime(args)
+        backend = BackendOnnxruntime()
     elif args.backend == "tvm":
         from backend_tvm import BackendTVM
         backend = BackendTVM()
@@ -298,6 +295,12 @@ def get_backend(args):
     elif args.backend == "tflite":
         from backend_tflite import BackendTflite
         backend = BackendTflite()
+    elif args.backend == "onnxruntime-directml":
+        from backend_onnxruntime_directml import BackendOnnxruntime
+        backend = BackendOnnxruntime(args)
+    elif args.backend == "onnxruntime-qnn":
+        from backedn_onnxruntime_qnn import BackendOnnxruntime
+        backend = BackendOnnxruntime()
     else:
         raise ValueError("unknown backend: " + backend)
     return backend
