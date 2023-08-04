@@ -306,7 +306,7 @@ def get_backend(args):
         from backend_onnxruntime_directml import BackendOnnxruntime
         backend = BackendOnnxruntime(args)
     elif args.backend == "onnxruntime-qnn":
-        from backedn_onnxruntime_qnn import BackendOnnxruntime
+        from backend_onnxruntime_qnn import BackendOnnxruntime
         backend = BackendOnnxruntime()
     elif backend == "ncnn":
         from backend_ncnn import BackendNCNN
