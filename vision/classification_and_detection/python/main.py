@@ -130,7 +130,7 @@ SUPPORTED_PROFILES = {
         "model-name": "mobilenet",
     },
     "mobilenetv2-onnxruntime": {
-        "dataset": "imagenet_mobilenet",
+        "dataset": "imagenet_pytorch",
         "inputs": "input",
         "outputs": "output",
         "model-name": "mobilenetv2",
