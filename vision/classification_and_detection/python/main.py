@@ -129,6 +129,12 @@ SUPPORTED_PROFILES = {
         "backend": "onnxruntime",
         "model-name": "mobilenet",
     },
+    "mobilenetv2-onnxruntime": {
+        "dataset": "imagenet_mobilenet",
+        "inputs": "input",
+        "outputs": "output",
+        "model-name": "mobilenetv2",
+    },
 
     # ssd-mobilenet
     "ssd-mobilenet-tf": {
