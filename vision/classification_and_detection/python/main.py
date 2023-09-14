@@ -217,7 +217,7 @@ SCENARIO_MAP = {
     "Server": lg.TestScenario.Server,
     "Offline": lg.TestScenario.Offline,
 }
-SUPPORTED_DEVICES = ["cpu", "gpu", "npu"]
+SUPPORTED_DEVICES = ["cpu", "gpu", "npu", "cpu_and_gpu", "cpu_and_npu"]
 last_timeing = []
 
 
@@ -314,6 +314,9 @@ def get_backend(args):
     elif args.backend == "onnxruntime-qnn":
         from backend_onnxruntime_qnn import BackendOnnxruntime
         backend = BackendOnnxruntime()
+    elif args.backend == "coreml":
+        from backend_coreml import BackendCoreML
+        backend = BackendCoreML()
     elif backend == "ncnn":
         from backend_ncnn import BackendNCNN
         backend = BackendNCNN()
