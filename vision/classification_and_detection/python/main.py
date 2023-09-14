@@ -138,7 +138,7 @@ SUPPORTED_PROFILES = {
     "mobilenetv2-coreml": {
         "dataset": "imagenet_pytorch",
         "inputs": "image",
-        "outputs": "classLabel",
+        "outputs": "classLabelProbs",
         "model-name": "mobilenetv2",
     },
 
