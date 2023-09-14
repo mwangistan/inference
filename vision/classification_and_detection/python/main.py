@@ -135,6 +135,12 @@ SUPPORTED_PROFILES = {
         "outputs": "output",
         "model-name": "mobilenetv2",
     },
+    "mobilenetv2-coreml": {
+        "dataset": "imagenet_pytorch",
+        "inputs": "image",
+        "outputs": "classLabel",
+        "model-name": "mobilenetv2",
+    },
 
     # ssd-mobilenet
     "ssd-mobilenet-tf": {
