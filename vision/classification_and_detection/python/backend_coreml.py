@@ -26,9 +26,9 @@ class BackendCoreML(backend.Backend):
         """Load model and find input/outputs from the model file."""
         if self.device == "cpu":
             self.model = ct.models.MLModel(model_path, compute_units=ct.ComputeUnit.CPU_ONLY)
-        elif self.device == "cpu_and_gpu":
+        elif self.device == "gpu":
             self.model = ct.models.MLModel(model_path, compute_units=ct.ComputeUnit.CPU_AND_GPU)
-        elif self.device == "cpu_and_npu":
+        elif self.device == "npu":
             self.model = ct.models.MLModel(model_path, compute_units=ct.ComputeUnit.CPU_AND_NE)
         else:
             self.model = ct.models.MLModel(model_path, compute_units=ct.ComputeUnit.ALL)

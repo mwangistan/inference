@@ -223,7 +223,7 @@ SCENARIO_MAP = {
     "Server": lg.TestScenario.Server,
     "Offline": lg.TestScenario.Offline,
 }
-SUPPORTED_DEVICES = ["cpu", "gpu", "npu", "cpu_and_gpu", "cpu_and_npu"]
+SUPPORTED_DEVICES = ["cpu", "gpu", "npu"]
 last_timeing = []
 
 
