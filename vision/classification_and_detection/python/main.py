@@ -114,7 +114,13 @@ SUPPORTED_PROFILES = {
         "backend": "ncnn",
         "model-name": "resnet50",
     },
-
+    "resnet50-coreml": {
+        "dataset": "imagenet",
+        "inputs": "image",
+        "outputs": "classLabelProbs",
+        "backend": "coreml",
+        "model-name": "resnet50",
+    },
     # mobilenet
     "mobilenet-tf": {
         "inputs": "input:0",
@@ -223,7 +229,7 @@ SCENARIO_MAP = {
     "Server": lg.TestScenario.Server,
     "Offline": lg.TestScenario.Offline,
 }
-SUPPORTED_DEVICES = ["cpu", "gpu", "npu"]
+SUPPORTED_DEVICES = ["CPU", "GPU", "NPU", "CPU_AND_GPU", "CPU_AND_NPU", "CPU_GPU_AND_NPU"]
 last_timeing = []
 
 

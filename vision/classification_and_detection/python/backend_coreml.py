@@ -24,11 +24,11 @@ class BackendCoreML(backend.Backend):
 
     def load(self, model_path, inputs=None, outputs=None):
         """Load model and find input/outputs from the model file."""
-        if self.device == "cpu":
+        if self.device == "CPU":
             self.model = ct.models.MLModel(model_path, compute_units=ct.ComputeUnit.CPU_ONLY)
-        elif self.device == "gpu":
+        elif self.device == "CPU_AND_GPU":
             self.model = ct.models.MLModel(model_path, compute_units=ct.ComputeUnit.CPU_AND_GPU)
-        elif self.device == "npu":
+        elif self.device == "CPU_AND_NPU":
             self.model = ct.models.MLModel(model_path, compute_units=ct.ComputeUnit.CPU_AND_NE)
         else:
             self.model = ct.models.MLModel(model_path, compute_units=ct.ComputeUnit.ALL)
