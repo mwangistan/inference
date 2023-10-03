@@ -5,6 +5,8 @@ coreml backend (https://coremltools.readme.io/)
 # pylint: disable=unused-argument,missing-docstring,useless-super-delegation
 import coremltools as ct
 import backend
+import torch
+from torchvision import transforms
 
 class BackendCoreML(backend.Backend):
     def __init__(self, args):
@@ -47,5 +49,7 @@ class BackendCoreML(backend.Backend):
 
     def predict(self, feed):
         """Run the prediction."""
-        return self.model.predict(feed)
+        key = [key for key in feed.keys()][0]
+        img = torch.tensor(feed[key]).squeeze(0)
+        return self.model.predict({key: transforms.ToPILImage()(img)})
         
