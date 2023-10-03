@@ -44,12 +44,6 @@ SUPPORTED_DATASETS = {
     "imagenet_pytorch":
         (imagenet.Imagenet, dataset.pre_process_imagenet_pytorch, dataset.PostProcessArgMax(offset=0),
          {"image_size": [224, 224, 3]}),
-    "imagenet_mobilenet_coreml":
-        (imagenet.Imagenet, dataset.pre_process_imagenet_mobilenet_coreml, dataset.PostProcessArgMax(offset=0),
-         {"image_size": [224, 224, 3]}),
-    "imagenet_resnet_coreml":
-        (imagenet.Imagenet, dataset.pre_process_imagenet_resnet_coreml, dataset.PostProcessArgMax(offset=0),
-         {"image_size": [224, 224, 3]}),
     "coco-300":
         (coco.Coco, dataset.pre_process_coco_mobilenet, coco.PostProcessCoco(),
          {"image_size": [300, 300, 3]}),
@@ -148,7 +142,7 @@ SUPPORTED_PROFILES = {
         "model-name": "mobilenetv2",
     },
     "mobilenetv2-coreml": {
-        "dataset": "imagenet_mobilenet_coreml",
+        "dataset": "imagenet_pytorch",
         "inputs": "image",
         "outputs": "classLabelProbs",
         "model-name": "mobilenetv2",
