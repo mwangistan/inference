@@ -6,15 +6,13 @@ import torch  # currently supports pytorch1.0
 import torchvision
 import backend
 
+
 class BackendPytorchNative(backend.Backend):
-    def __init__(self, args):
+    def __init__(self):
         super(BackendPytorchNative, self).__init__()
         self.sess = None
         self.model = None
-        if args.device == "cpu":
-            self.device = "cpu"
-        if args.device == "gpu":
-            self.device = "mps"
+        self.device = "cuda:0" if torch.cuda.is_available() else "cpu"
 
     def version(self):
         return torch.__version__

@@ -136,7 +136,29 @@ class PostProcessArgMax:
         results["good"] = self.good
         results["total"] = self.total
 
+class PostProcessImagenetCoreml:
+    def __init__(self):
+        self.good = 0
+        self.total = 0
 
+    def __call__(self, results, ids, expected=None, result_dict=None):
+        processed_results = []
+        processed_results.append([results])
+        if results == expected[0]:
+            self.good += 1
+        self.total += 1
+        return processed_results
+
+    def add_results(self, results):
+        pass
+
+    def start(self):
+        self.good = 0
+        self.total = 0
+
+    def finalize(self, results, ds=False, output_dir=None):
+        results["good"] = self.good
+        results["total"] = self.total
 #
 # pre-processing
 #
@@ -216,7 +238,13 @@ def pre_process_imagenet_pytorch(img, dims=None, need_transpose=False):
         img = img.permute(1, 2, 0) # NHWC
     img = np.asarray(img, dtype='float32')
     return img
-    
+
+def pre_process_imagenet_coreml(img, dims=None, need_transpose=False):
+    img = cv2.resize(img, (256, 256), interpolation=cv2.INTER_LINEAR)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    img = img[16:240, 16:240]
+    return img
+
 def maybe_resize(img, dims):
     img = np.array(img, dtype=np.float32)
     if len(img.shape) < 3 or img.shape[2] != 3:
