@@ -67,6 +67,6 @@ class BackendCoreML(backend.Backend):
         img = feed[key]
         img = np.squeeze(img)
         img = Image.fromarray(np.uint8(img))
-        out = self.model.predict({key: img})[self.outputs]
+        out = self.model.predict({key: img})[self.outputs[0]]
         output_index = self.class_label_index[out]
         return output_index
