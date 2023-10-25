@@ -567,7 +567,6 @@ def main():
     ds.load_query_samples([0])
     for _ in range(5):
         img, _ = ds.get_samples([0])
-        print(backend.inputs[0])
         _ = backend.predict({backend.inputs[0]: img})
     ds.unload_query_samples(None)
 
