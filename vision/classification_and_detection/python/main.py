@@ -260,6 +260,7 @@ def get_args():
     parser.add_argument("--preprocessed_dir", type=str, default=None, help="dir path for storing preprocessed images (overrides cache_dir)")
     parser.add_argument("--use_preprocessed_dataset", action="store_true", help="use preprocessed dataset instead of the original")
     parser.add_argument("--accuracy", action="store_true", help="enable accuracy pass")
+    parser.add_argument("--enable_profiling", action="store_true", help="enable performance profiling")
     parser.add_argument("--find-peak-performance", action="store_true", help="enable finding peak performance pass")
     parser.add_argument("--debug", action="store_true", help="debug, turn traces on")
 
@@ -307,7 +308,7 @@ def get_backend(args):
         backend = BackendTensorflow()
     elif args.backend == "onnxruntime":
         from backend_onnxruntime import BackendOnnxruntime
-        backend = BackendOnnxruntime()
+        backend = BackendOnnxruntime(args)
     elif args.backend == "tvm":
         from backend_tvm import BackendTVM
         backend = BackendTVM()

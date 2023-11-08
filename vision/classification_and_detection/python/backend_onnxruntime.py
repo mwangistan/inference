@@ -10,8 +10,10 @@ import backend
 
 
 class BackendOnnxruntime(backend.Backend):
-    def __init__(self):
+    def __init__(self, args):
         super(BackendOnnxruntime, self).__init__()
+        self.profiling = args.enable_profiling
+        self.threads = args.threads
 
     def version(self):
         return rt.__version__
@@ -27,6 +29,9 @@ class BackendOnnxruntime(backend.Backend):
     def load(self, model_path, inputs=None, outputs=None):
         """Load model and find input/outputs from the model file."""
         opt = rt.SessionOptions()
+        if self.profiling:
+            opt.enable_profiling = True
+        opt.intra_op_num_threads = self.threads
 
         # By default all optimizations are enabled
         # https://onnxruntime.ai/docs/performance/graph-optimizations.html
