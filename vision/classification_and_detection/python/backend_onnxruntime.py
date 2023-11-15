@@ -13,7 +13,7 @@ class BackendOnnxruntime(backend.Backend):
     def __init__(self, args):
         super(BackendOnnxruntime, self).__init__()
         self.profiling = args.enable_profiling
-        self.threads = args.threads
+        self.threads = args.intra_op_threads
 
     def version(self):
         return rt.__version__
