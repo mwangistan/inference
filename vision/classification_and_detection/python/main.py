@@ -144,11 +144,23 @@ SUPPORTED_PROFILES = {
         "outputs": "output",
         "model-name": "mobilenetv2",
     },
+    "mobilenetv2-qdq-onnxruntime": {
+        "dataset": "imagenet_pytorch",
+        "inputs": "input",
+        "outputs": "output",
+        "model-name": "mobilenetv2-quantized",
+    },
     "mobilenetv2-coreml": {
         "dataset": "imagenet_coreml",
         "inputs": "image",
         "outputs": "classLabel",
         "model-name": "mobilenetv2",
+    },
+    "mobilenetv2-qdq-coreml": {
+        "dataset": "imagenet_coreml",
+        "inputs": "image",
+        "outputs": "classLabel",
+        "model-name": "mobilenetv2-quantized",
     },
 
     # ssd-mobilenet
