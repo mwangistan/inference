@@ -245,6 +245,16 @@ def pre_process_imagenet_coreml(img, dims=None, need_transpose=False):
     img = img[16:240, 16:240]
     return img
 
+def pre_process_imagenet_mobilenetv2(img, dims=None, need_transpose=False):
+    img = cv2.resize(img, (256, 256), interpolation=cv2.INTER_LINEAR)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    img = img[16:240, 16:240]
+    img = np.array(img, dtype='float32') / 255.0 # convert to numpy array and scale to [0, 1]
+    img = (img - np.array([0.485, 0.456, 0.406])) / np.array([0.229, 0.224, 0.225]) # normalize
+    img = img.transpose((2, 0, 1))
+    img = np.asarray(img, dtype='float32')
+    return img      
+
 def maybe_resize(img, dims):
     img = np.array(img, dtype=np.float32)
     if len(img.shape) < 3 or img.shape[2] != 3:

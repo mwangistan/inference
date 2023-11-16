@@ -44,6 +44,9 @@ SUPPORTED_DATASETS = {
     "imagenet_pytorch":
         (imagenet.Imagenet, dataset.pre_process_imagenet_pytorch, dataset.PostProcessArgMax(offset=0),
          {"image_size": [224, 224, 3]}),
+    "imagenet_mobilenetv2":
+        (imagenet.Imagenet, dataset.pre_process_imagenet_mobilenetv2, dataset.PostProcessArgMax(offset=0),
+         {"image_size": [224, 224, 3]}),
     "imagenet_coreml":
         (imagenet.Imagenet, dataset.pre_process_imagenet_coreml, dataset.PostProcessImagenetCoreml(),
          {"image_size": [224, 224, 3]}),
@@ -139,13 +142,13 @@ SUPPORTED_PROFILES = {
         "model-name": "mobilenet",
     },
     "mobilenetv2-onnxruntime": {
-        "dataset": "imagenet_pytorch",
+        "dataset": "imagenet_mobilenetv2",
         "inputs": "input",
         "outputs": "output",
         "model-name": "mobilenetv2",
     },
     "mobilenetv2-qdq-onnxruntime": {
-        "dataset": "imagenet_pytorch",
+        "dataset": "imagenet_mobilenetv2",
         "inputs": "input",
         "outputs": "output",
         "model-name": "mobilenetv2-quantized",
