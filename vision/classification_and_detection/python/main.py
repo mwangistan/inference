@@ -269,7 +269,7 @@ def get_args():
     parser.add_argument("--backend", help="runtime to use")
     parser.add_argument("--model-name", help="name of the mlperf model, ie. resnet50")
     parser.add_argument("--threads", default=os.cpu_count(), type=int, help="threads")
-    parser.add_argument("--intra_op_threads", default=0, type=int, help="intra_op_threads")
+    parser.add_argument("--intra_op_threads", default=os.cpu_count(), type=int, help="intra_op_threads")
     parser.add_argument("--qps", type=int, help="target qps")
     parser.add_argument("--cache", type=int, default=0, help="use cache")
     parser.add_argument("--cache_dir", type=str, default=None, help="dir path for caching")
