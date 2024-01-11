@@ -248,6 +248,8 @@ SCENARIO_MAP = {
     "Offline": lg.TestScenario.Offline,
 }
 SUPPORTED_DEVICES = ["CPU", "GPU", "NPU", "CPU_AND_GPU", "CPU_AND_NPU", "CPU_GPU_AND_NPU"]
+GRAPH_OPTIMIZATION_LEVEL = ["ORT_ENABLE_ALL", "ORT_DISABLE_ALL", "ORT_ENABLE_BASIC", "ORT_ENABLE_EXTENDED"]
+EXECUTION_MODE = ["ORT_SEQUENTIAL", "ORT_PARALLEL"]
 last_timeing = []
 
 
@@ -277,6 +279,7 @@ def get_args():
     parser.add_argument("--use_preprocessed_dataset", action="store_true", help="use preprocessed dataset instead of the original")
     parser.add_argument("--accuracy", action="store_true", help="enable accuracy pass")
     parser.add_argument("--enable_profiling", action="store_true", help="enable performance profiling")
+    parser.add_argument("--thread_spinning", action="store_true", help="enable thread spinning")
     parser.add_argument("--find-peak-performance", action="store_true", help="enable finding peak performance pass")
     parser.add_argument("--debug", action="store_true", help="debug, turn traces on")
 
@@ -295,6 +298,8 @@ def get_args():
     parser.add_argument("--samples-per-query", default=8, type=int, help="mlperf multi-stream samples per query")
     parser.add_argument("--device_id", type=int, help="Device id")
     parser.add_argument("--device", choices=SUPPORTED_DEVICES, help="Supported device i.e cpu, gpu or npu")
+    parser.add_argument("--graph_optimization_level", choices=GRAPH_OPTIMIZATION_LEVEL, help="Graph optimization level")
+    parser.add_argument("--execution_mode", choices=EXECUTION_MODE, help="Execution mode")
     args = parser.parse_args()
 
     # don't use defaults in argparser. Instead we default to a dict, override that with a profile

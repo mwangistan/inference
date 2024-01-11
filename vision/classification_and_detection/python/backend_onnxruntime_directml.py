@@ -12,6 +12,9 @@ class BackendOnnxruntime(backend.Backend):
         super(BackendOnnxruntime, self).__init__()
         self.provider = ["DmlExecutionProvider"]
         self.provider_options = [{'device_id': str(args.device_id) if args.device_id else "0"}]
+        self.profiling = args.enable_profiling
+        self.threads = args.intra_op_threads
+        self.graph_optimization_level = args.graph_optimization_level
 
     def version(self):
         return rt.__version__
@@ -27,7 +30,16 @@ class BackendOnnxruntime(backend.Backend):
     def load(self, model_path, inputs=None, outputs=None):
         """Load model and find input/outputs from the model file."""
         opt = rt.SessionOptions()
-
+        if self.profiling:
+            opt.enable_profiling = True
+        if self.graph_optimization_level == "ORT_ENABLE_ALL":
+            opt.graph_optimization_level = rt.GraphOptimizationLevel.ORT_ENABLE_ALL
+        if self.graph_optimization_level == "ORT_DISABLE_ALL":
+            opt.graph_optimization_level = rt.GraphOptimizationLevel.ORT_DISABLE_ALL
+        if self.graph_optimization_level == "ORT_ENABLE_BASIC":
+            opt.graph_optimization_level = rt.GraphOptimizationLevel.ORT_ENABLE_BASIC
+        opt.intra_op_num_threads = self.threads
+        
         # By default all optimizations are enabled
         # https://onnxruntime.ai/docs/performance/graph-optimizations.html
         # Enable only upto extended optimizations on aarch64 due to an accuracy issue

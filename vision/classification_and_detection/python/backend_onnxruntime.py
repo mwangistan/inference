@@ -14,6 +14,9 @@ class BackendOnnxruntime(backend.Backend):
         super(BackendOnnxruntime, self).__init__()
         self.profiling = args.enable_profiling
         self.threads = args.intra_op_threads
+        self.graph_optimization_level = args.graph_optimization_level
+        self.thread_spinning = args.thread_spinning
+        self.execution_mode = args.execution_mode
 
     def version(self):
         return rt.__version__
@@ -29,8 +32,34 @@ class BackendOnnxruntime(backend.Backend):
     def load(self, model_path, inputs=None, outputs=None):
         """Load model and find input/outputs from the model file."""
         opt = rt.SessionOptions()
+
+        # Tracing/profiling
         if self.profiling:
             opt.enable_profiling = True
+
+        # Graph optimization
+        if self.graph_optimization_level == "ORT_ENABLE_ALL":
+            opt.graph_optimization_level = rt.GraphOptimizationLevel.ORT_ENABLE_ALL
+        if self.graph_optimization_level == "ORT_DISABLE_ALL":
+            opt.graph_optimization_level = rt.GraphOptimizationLevel.ORT_DISABLE_ALL
+        if self.graph_optimization_level == "ORT_ENABLE_BASIC":
+            opt.graph_optimization_level = rt.GraphOptimizationLevel.ORT_ENABLE_BASIC
+        if self.graph_optimization_level == "ORT_ENABLE_EXTENDED":
+            opt.graph_optimization_level = rt.GraphOptimizationLevel.ORT_ENABLE_EXTENDED
+
+        # Thread execution mode
+        if self.execution_mode == "ORT_SEQUENTIAL":
+            opt.execution_mode = rt.ExecutionMode.ORT_SEQUENTIAL
+        if self.execution_mode == "ORT_PARALLEL":
+            opt.execution_mode = rt.ExecutionMode.ORT_PARALLEL
+
+        # Thread spinning
+        if self.thread_spinning:
+            opt.add_session_config_entry("session.intra_op.allow_spinning", "1")
+        else:
+            opt.add_session_config_entry("session.intra_op.allow_spinning", "0")
+
+        # Number of threads
         opt.intra_op_num_threads = self.threads
 
         # By default all optimizations are enabled
