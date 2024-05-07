@@ -350,7 +350,7 @@ def get_backend(args):
         backend = BackendOnnxruntime(args)
     elif args.backend == "onnxruntime-qnn":
         from backend_onnxruntime_qnn import BackendOnnxruntime
-        backend = BackendOnnxruntime()
+        backend = BackendOnnxruntime(args)
     elif args.backend == "coreml":
         from backend_coreml import BackendCoreML
         backend = BackendCoreML(args)
